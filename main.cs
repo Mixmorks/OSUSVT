@@ -16,44 +16,6 @@ namespace SolarCar{
 	
 	}
 	
-	
-	class Data{
-		
-		public
-		
-			void setGPS(GPS x);
-		
-		private
-		
-			struct GPS{
-				string Longtitude;
-				string Latitude;
-				string SatCoun;
-				string Velocity;
-				string Altitude;
-				string Bearings;
-				string Quality;
-				string NoW;
-				string EoW;
-				string UTC;
-			}
-			
-			struct BCM{
-				bool Ready;
-				bool EPO;
-				bool ACChargerPlugged;
-				bool HVIL;
-				
-				int MainContactorState;
-				int ChargeContactorState;
-				
-				bool PowerRelayCommandState;
-				bool PowerRelayRelayMonitor;
-				bool
-			}
-		
-	}
-	
 	class MainRoutine{
 	
 		static void Main(){
