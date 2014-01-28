@@ -18,14 +18,7 @@ namespace main
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textbox.Text == "Goodbye.")
-            {
-                textbox.Text = "Hello World!";
-            }
-            else
-            {
-                textbox.Text = "Goodbye.";
-            }
+
             
         }
 
