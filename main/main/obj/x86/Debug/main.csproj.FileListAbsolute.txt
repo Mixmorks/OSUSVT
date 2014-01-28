@@ -1,0 +1,9 @@
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\bin\Debug\main.exe
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\bin\Debug\main.pdb
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.Form1.resources
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.Properties.Resources.resources
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.exe
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.pdb
