@@ -19,6 +19,8 @@ namespace main
         private void button1_Click(object sender, EventArgs e)
         {
 
+            GPS.GPSclass gps_data = new GPS.GPSclass();
+            gps_data.latitude = 2.315;
             
         }
 
