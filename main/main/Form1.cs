@@ -21,7 +21,7 @@ namespace main
 
         private void button1_Click(object sender, EventArgs e)
         {
-            gps_data.sat_count++;
+            gps_data.sat_count+=2;
             textbox.Text = gps_data.sat_count.ToString();
         }
 
