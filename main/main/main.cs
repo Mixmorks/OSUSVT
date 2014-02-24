@@ -12,10 +12,11 @@ namespace main
         static void Main()
         {
 
-            GPS.GPSclass GPS_class = new GPS.GPSclass();
+            GPS.GPSclass gps_data = new GPS.GPSclass();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new mainForm());
             return;
             
 

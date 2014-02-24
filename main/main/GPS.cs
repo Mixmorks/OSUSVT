@@ -22,61 +22,41 @@ namespace GPS
             bool _EoW = false;
             string _UTC = "N/A";     //Time at position of GPS.
 
-        public
-
-            GPSclass()
+            public GPSclass()
             {
 
             }
 
-            float latitude
+            public float latitude
             {
-                get
-                {
-                    return _latitude;
-                }
-                set
-                {
-                    _latitude = value;
-                }
+                get{ return _latitude; }
+                set{ _latitude = value; }
             }
 
-            float longitude
+            public float longitude
             {
-                get
-                {
-                    return _longitude;
-                }
-                set
-                {
-                    _longitude = value;
-                }
+                get{ return _longitude; }
+                set{ _longitude = value; }
             }
 
-            float sat_count
+            public float sat_count
             {
-                get
-                {
-                    return _sat_count;
-                }
-                set
-                {
-                    _sat_count = value;
-                }
+                get{ return _sat_count; }
+                set{ _sat_count = (int)value; }
             }
 
-            float velocity
+            public float velocity
             {
-                get
-                {
-                    return _velocity;
-                }
-                set
-                {
-                    _velocity = value;
-                }
+                get{ return _velocity; }
+                set{ _velocity = value; }
             }
 
+            public float altitude
+            {
+                get { return _altitude; }
+                set { _altitude = value; }
+            }
 
+            
     }
 }

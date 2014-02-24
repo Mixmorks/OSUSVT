@@ -9,19 +9,18 @@ using System.Windows.Forms;
 
 namespace main
 {
-    public partial class Form1 : Form
+    public partial class mainForm : Form
     {
-        public Form1()
+        GPS.GPSclass gps_data = new GPS.GPSclass();
+        public mainForm()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            GPS.GPSclass gps_data = new GPS.GPSclass();
-            gps_data.latitude = 2.315;
-            
+            textbox.Text = gps_data.sat_count.ToString();
+            gps_data.sat_count++;
         }
 
     }
