@@ -39,7 +39,7 @@ namespace GPS
                 set{ _longitude = value; }
             }
 
-            public float sat_count
+            public int sat_count
             {
                 get{ return _sat_count; }
                 set{ _sat_count = (int)value; }
@@ -67,6 +67,11 @@ namespace GPS
             {
                 get { return _quality; }
                 set { _quality = value; }
+            }
+
+            bool open_ports()
+            {
+                return false;
             }
     }
 }

@@ -12,8 +12,6 @@ namespace main
         static void Main()
         {
 
-            GPS.GPSclass gps_data = new GPS.GPSclass();
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new mainForm());
