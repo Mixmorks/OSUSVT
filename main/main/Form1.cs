@@ -23,5 +23,10 @@ namespace main
             gps_data.sat_count++;
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

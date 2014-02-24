@@ -57,6 +57,16 @@ namespace GPS
                 set { _altitude = value; }
             }
 
-            
+            public string bearing
+            {
+                get { return _bearing; }
+                set { _bearing = value; }
+            }
+
+            public int quality
+            {
+                get { return _quality; }
+                set { _quality = value; }
+            }
     }
 }
