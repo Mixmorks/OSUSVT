@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO.Ports;
 
 namespace GPS
 {
@@ -24,7 +25,7 @@ namespace GPS
 
             public GPSclass()
             {
-
+                
             }
 
             public float latitude
