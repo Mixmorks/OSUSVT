@@ -6,9 +6,11 @@ C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.pdb
 C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.exe
 C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.pdb
 C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.csprojResolveAssemblyReference.cache
-C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.Form1.resources
 C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.Properties.Resources.resources
 C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.csproj.GenerateResource.Cache
 C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.csprojResolveAssemblyReference.cache
 C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.mainForm.resources
 C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.csproj.GenerateResource.Cache
+C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\bin\Debug\main.exe
+C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\bin\Debug\main.pdb
+C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.mainForm.resources

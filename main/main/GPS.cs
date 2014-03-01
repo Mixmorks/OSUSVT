@@ -26,11 +26,8 @@ namespace GPS
 
         public GPSclass(string gps_port_name, int gps_port_baud)
         {
-            gps_port = new SerialPort();
-            gps_port.PortName = gps_port_name;
-            gps_port.BaudRate = gps_port_baud;
-
-
+            gps_port = new SerialPort(gps_port_name , gps_port_baud);
+            gps_port.Open();
 
         }
 
@@ -40,40 +37,16 @@ namespace GPS
             set { _latitude = value; }
         }
 
-        public float longitude
+        public string read_gps_port()
         {
-            get { return _longitude; }
-            set { _longitude = value; }
-        }
+            string data = "";
 
-        public int sat_count
-        {
-            get { return _sat_count; }
-            set { _sat_count = (int)value; }
-        }
-
-        public float velocity
-        {
-            get { return _velocity; }
-            set { _velocity = value; }
-        }
-
-        public float altitude
-        {
-            get { return _altitude; }
-            set { _altitude = value; }
-        }
-
-        public string bearing
-        {
-            get { return _bearing; }
-            set { _bearing = value; }
-        }
-
-        public int quality
-        {
-            get { return _quality; }
-            set { _quality = value; }
+            while (data == "")
+            {
+                gps_port.ReadLine();
+            }
+            
+            return data; 
         }
 
     }
