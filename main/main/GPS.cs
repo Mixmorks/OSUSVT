@@ -22,7 +22,7 @@ namespace GPS
             bool _NoS = false;
             bool _EoW = false;
             string _UTC = "N/A";     //Time at position of GPS.
-            SerialPort gps_port;
+            static SerialPort gps_port;
 
         public GPSclass(string gps_port_name, int gps_port_baud)
         {
@@ -37,16 +37,21 @@ namespace GPS
             set { _latitude = value; }
         }
 
-        public string read_gps_port()
+        static public string read_gps_port()
         {
             string data = "";
 
             while (data == "")
             {
-                gps_port.ReadLine();
+                data = gps_port.ReadLine();
             }
             
             return data; 
+        }
+
+        static public void close_gps_port()
+        {
+            gps_port.Close();
         }
 
     }
