@@ -13,7 +13,7 @@ namespace main
     public partial class mainForm : Form
     {
 
-        GPS.GPSclass gps_data = new GPS.GPSclass("COM3", 9600);
+        GPS.GPSclass gps_data = new GPS.GPSclass("COM5", 9600);
 
         public mainForm()
         {
