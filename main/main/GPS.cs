@@ -25,16 +25,17 @@ namespace GPS
             static SerialPort gps_port;
 
         public delegate void GPS_data_received();
+        public GPS_data_received handler;
+
         public event GPS_data_received GPS_data_available;
         
         public GPSclass(string gps_port_name, int gps_port_baud)
         {
-            gps_port = new SerialPort(gps_port_name , gps_port_baud);
-            gps_port.Open();
-
+            //gps_port = new SerialPort(gps_port_name , gps_port_baud);  
+            //gps_port.Open();
         }
 
-        private void handle_GPS_data_available() //This needs to be an event.
+        public void handle_GPS_data_available() //This needs to be an event.
         {
             string gps_serial_data;
             string[] gps_data;

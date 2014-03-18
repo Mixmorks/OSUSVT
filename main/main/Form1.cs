@@ -13,10 +13,12 @@ namespace main
     public partial class mainForm : Form
     {
 
-        GPS.GPSclass gps_data = new GPS.GPSclass("COM5", 9600);
+        GPS.GPSclass gps_data = new GPS.GPSclass("COM1", 9600);
+
 
         public mainForm()
         {
+            gps_data.handler = gps_data.handle_GPS_data_available; //MS sucks Donkey Balls!
             InitializeComponent();
         }
 
@@ -25,13 +27,14 @@ namespace main
             textbox.Text = "Test.";
             string[] valid_ports = SerialPort.GetPortNames(); //GetPortNames() checks the registry (i.e. HKEY_LOCAL_MACHINE\HARDWARE\DEVICEMAP\SERIALCOMM)
             textbox.Text = String.Join(", ", valid_ports);    //For some reason this turns up blank on my laptop.
-            portbox.Text = GPS.GPSclass.read_gps_port();
+            gps_data.handler();
         }
 
         private void textbox_Click(object sender, EventArgs e)
         {
 
         }
+
 
     }
 }

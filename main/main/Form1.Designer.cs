@@ -148,9 +148,9 @@
             this.eow.AutoSize = true;
             this.eow.Location = new System.Drawing.Point(143, 104);
             this.eow.Name = "eow";
-            this.eow.Size = new System.Drawing.Size(35, 13);
+            this.eow.Size = new System.Drawing.Size(27, 13);
             this.eow.TabIndex = 11;
-            this.eow.Text = "label8";
+            this.eow.Text = "eow";
             // 
             // mainForm
             // 
