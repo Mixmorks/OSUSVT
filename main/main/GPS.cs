@@ -22,21 +22,24 @@ namespace GPS
             string _NoS = "";
             string _EoW = "";
             string _UTC = "N/A";       //Time at position of GPS.
-            static SerialPort gps_port;
 
-        public delegate void GPS_data_received();
+        public static SerialPort gps_port;
+
+        /*public delegate void GPS_data_received();
         public GPS_data_received handler;
 
-        public event GPS_data_received GPS_data_available;
+        public event GPS_data_received GPS_data_available;*/
         
         public GPSclass(string gps_port_name, int gps_port_baud)
         {
-            //gps_port = new SerialPort(gps_port_name , gps_port_baud);  
-            //gps_port.Open();
+            gps_port = new SerialPort(gps_port_name , gps_port_baud);
+            gps_port.Open();
+            
         }
 
-        public void handle_GPS_data_available() //This needs to be an event.
+        public void handle_GPS_data_available(object sender, SerialDataReceivedEventArgs e) //This needs to be an event.
         {
+
             string gps_serial_data;
             string[] gps_data;
                 
@@ -68,6 +71,7 @@ namespace GPS
                 _EoW = gps_data[6];
                 _velocity = (Math.Round(double.Parse(gps_data[7]) * 1.15077945)).ToString();
 
+
             }
 
             if ((gps_data[0] == "$GPGGA") && (gps_data[2] == "A"))
@@ -97,11 +101,10 @@ namespace GPS
                 _altitude = gps_data[9];
 
             }
-             
 
         }
 
-        static public void close_gps_port()
+        static void close_gps_port()
         {
             gps_port.Close();
         }

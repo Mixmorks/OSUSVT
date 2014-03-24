@@ -42,16 +42,6 @@
             this.eow = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textbox
-            // 
-            this.textbox.AutoSize = true;
-            this.textbox.Location = new System.Drawing.Point(343, 108);
-            this.textbox.Name = "textbox";
-            this.textbox.Size = new System.Drawing.Size(41, 13);
-            this.textbox.TabIndex = 0;
-            this.textbox.Text = "textbox";
-            this.textbox.Click += new System.EventHandler(this.textbox_Click);
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(346, 135);
@@ -65,7 +55,7 @@
             // portbox
             // 
             this.portbox.AutoSize = true;
-            this.portbox.Location = new System.Drawing.Point(398, 108);
+            this.portbox.Location = new System.Drawing.Point(346, 104);
             this.portbox.Name = "portbox";
             this.portbox.Size = new System.Drawing.Size(47, 13);
             this.portbox.TabIndex = 2;
@@ -74,7 +64,7 @@
             // conupdate
             // 
             this.conupdate.AutoSize = true;
-            this.conupdate.Location = new System.Drawing.Point(346, 180);
+            this.conupdate.Location = new System.Drawing.Point(343, 184);
             this.conupdate.Name = "conupdate";
             this.conupdate.Size = new System.Drawing.Size(92, 13);
             this.conupdate.TabIndex = 3;

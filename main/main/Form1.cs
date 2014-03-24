@@ -14,12 +14,15 @@ namespace main
     {
 
         GPS.GPSclass gps_data = new GPS.GPSclass("COM1", 9600);
+        BodyCM.BodyControlModuleclass body_control_data = new BodyCM.BodyControlModuleclass("COM3", 9600);
+        public delegate void new_info_for_screen();
 
 
         public mainForm()
         {
-            gps_data.handler = gps_data.handle_GPS_data_available; //MS sucks Donkey Balls!
             InitializeComponent();
+            GPS.GPSclass.gps_port.DataReceived += gps_data.handle_GPS_data_available; //Shortcut way of writing port.DataReceived += new SerialDataReceivedEventHandler(eventhandler)
+            BodyCM.BodyControlModuleclass.body_control_module_port.DataReceived += handle_body_control_data;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -27,14 +30,18 @@ namespace main
             textbox.Text = "Test.";
             string[] valid_ports = SerialPort.GetPortNames(); //GetPortNames() checks the registry (i.e. HKEY_LOCAL_MACHINE\HARDWARE\DEVICEMAP\SERIALCOMM)
             textbox.Text = String.Join(", ", valid_ports);    //For some reason this turns up blank on my laptop.
-            gps_data.handler();
+
         }
 
-        private void textbox_Click(object sender, EventArgs e)
+        private void handle_GPS_data(object sender, SerialDataReceivedEventArgs e)
+        { 
+
+        }
+
+        private void handle_body_control_data(object sender, SerialDataReceivedEventArgs e)
         {
-
+            body_control_data.read_port();
         }
-
 
     }
 }
