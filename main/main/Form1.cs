@@ -15,7 +15,7 @@ namespace main
 
         GPS.GPSclass gps_data = new GPS.GPSclass("COM1", 9600);
         BodyCM.BodyControlModuleclass body_control_data = new BodyCM.BodyControlModuleclass("COM3", 9600);
-        public delegate void new_info_for_screen();
+        public delegate void SetTextCallback(string text);
 
 
         public mainForm()
@@ -41,6 +41,22 @@ namespace main
         private void handle_body_control_data(object sender, SerialDataReceivedEventArgs e)
         {
             body_control_data.read_port();
+            reset_ui(body_control_data.teststring);
+        }
+
+        private void reset_ui(string text)
+        {
+
+            if (conupdate.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(reset_ui);
+                Invoke(d, new object[] { text });
+            }
+            else
+            {
+                conupdate.Text = body_control_data.teststring;
+            }
+
         }
 
     }
