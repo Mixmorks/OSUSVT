@@ -10,18 +10,18 @@ namespace GPS
     class GPSclass
     {
 
-        private
+       public
 
-            string _latitude  = "";    //Data read from the GPRMC output from GPS.
-            string _longitude = "";    //Data read from the GPRMC output from GPS.
-            string _sat_count = "";    //Number of Sattelites AKA NumInUse (from GPGGA)
-            string _velocity  = "";    //Velocity deteriorated to MPH. We really ought to change this to the motorcontroller.
-            string _altitude  = "";    //Altitude (from GPGGA) above or below MEAN sea level data (taking into account the earth's ellipsoid shape) in METERS
-            string _bearing = "N/A";   //
-            string _quality = "";      //GPS quality indicator (0=invalid; 1=GPS fix; 2=Diff. GPS fix) (from GPGGA)
-            string _NoS = "";
-            string _EoW = "";
-            string _UTC = "N/A";       //Time at position of GPS.
+            string Latitude { get; set; } //Data read from the GPRMC output from GPS.
+            string Longitude { get; set; }     //Data read from the GPRMC output from GPS.
+            string Sat_count { get; set; }     //Number of Sattelites AKA NumInUse (from GPGGA)
+            string Velocity  { get; set; }     //Velocity deteriorated to MPH. We really ought to change this to the motorcontroller.
+            string Altitude  { get; set; }     //Altitude (from GPGGA) above or below MEAN sea level data (taking into account the earth's ellipsoid shape) in METERS
+            string Bearing { get; set; }    //
+            string Quality { get; set; }       //GPS quality indicator (0=invalid; 1=GPS fix; 2=Diff. GPS fix) (from GPGGA)
+            string NoS { get; set; }
+            string EoW { get; set; }
+            string UTC { get; set; }   //Time at position of GPS.
 
         public static SerialPort gps_port;
 
@@ -37,7 +37,7 @@ namespace GPS
             
         }
 
-        public void handle_GPS_data_available(object sender, SerialDataReceivedEventArgs e) //This needs to be an event.
+        public void handle_GPS_data_available() //This needs to be an event.
         {
 
             string gps_serial_data;
@@ -64,12 +64,12 @@ namespace GPS
                 11   = E or W
                 12   = Checksum
                 */
-                _UTC = gps_data[1];
-                _latitude = gps_data[3];
-                _longitude = gps_data[5];
-                _NoS = gps_data[4];
-                _EoW = gps_data[6];
-                _velocity = (Math.Round(double.Parse(gps_data[7]) * 1.15077945)).ToString();
+                UTC = gps_data[1];
+                Latitude = gps_data[3];
+                Longitude = gps_data[5];
+                NoS = gps_data[4];
+                EoW = gps_data[6];
+                Velocity = (Math.Round(double.Parse(gps_data[7]) * 1.15077945)).ToString();
 
 
             }
@@ -96,9 +96,9 @@ namespace GPS
                 15   = Checksum
                 */
 
-                _quality = gps_data[6];
-                _sat_count = gps_data[7];
-                _altitude = gps_data[9];
+                Quality = gps_data[6];
+                Sat_count = gps_data[7];
+                Altitude = gps_data[9];
 
             }
 
