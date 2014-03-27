@@ -42,6 +42,13 @@
             this.eow = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
+            // textbox
+            // 
+            this.textbox.Location = new System.Drawing.Point(0, 0);
+            this.textbox.Name = "textbox";
+            this.textbox.Size = new System.Drawing.Size(100, 23);
+            this.textbox.TabIndex = 12;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(346, 135);
