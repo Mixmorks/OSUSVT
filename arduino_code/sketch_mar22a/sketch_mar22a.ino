@@ -6,7 +6,6 @@ String test;
 void setup()
 {
     Serial.begin(9600);
-    Serial.print("ARDUINO!\n");
 }
 
 void loop()
@@ -22,6 +21,14 @@ void serialEvent()
     for(var = 0; var < 8; var++)
          test += data[var];  
     
-    if(test == "testmess")
-      Serial.println("Ready to roll!");
+    if(test == "initport")
+    {
+      Serial.println("arduinos");
+    }
+    if(test == "buttonaa")
+    {
+      Serial.println("I heard you.");
+    }
+
+    test = "";
 }

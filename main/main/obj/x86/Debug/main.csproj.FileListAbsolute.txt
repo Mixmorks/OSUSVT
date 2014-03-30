@@ -14,3 +14,5 @@ C:\Users\Student\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.csproj.Gen
 C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\bin\Debug\main.exe
 C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\bin\Debug\main.pdb
 C:\Users\Uli\Documents\GitHub\OSUSVT\main\main\obj\x86\Debug\main.mainForm.resources
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\bin\Debug\main.exe.config
+C:\Users\Student\Documents\GitHub\OSUSVT\main\main\bin\Debug\SVTTELEMETRY.sdf

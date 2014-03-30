@@ -9,11 +9,13 @@ namespace GPS
 
     class GPSclass
     {
+        
+ 
             public string Latitude { get; set; }   //Data read from the GPRMC output from GPS.
             public string Longitude { get; set; }  //Data read from the GPRMC output from GPS.
             public string Sat_count { get; set; }  //Number of Sattelites AKA NumInUse (from GPGGA)
-            public string Velocity { get; set; }  //Velocity deteriorated to MPH. We really ought to change this to the motorcontroller.
-            public string Altitude { get; set; }  //Altitude (from GPGGA) above or below MEAN sea level data (taking into account the earth's ellipsoid shape) in METERS
+            public string Velocity { get; set; }   //Velocity deteriorated to MPH. We really ought to change this to the motorcontroller.
+            public string Altitude { get; set; }   //Altitude (from GPGGA) above or below MEAN sea level data (taking into account the earth's ellipsoid shape) in METERS
             public string Bearing { get; set; }    //
             public string Quality { get; set; }    //GPS quality indicator (0=invalid; 1=GPS fix; 2=Diff. GPS fix) (from GPGGA)
             public string NoS { get; set; }
@@ -21,14 +23,16 @@ namespace GPS
             public string UTC { get; set; }        //Time at position of GPS.
             
             public bool GPS_found_flag = false;
-            public static SerialPort gps_port;
+            public SerialPort gps_port;
         
         public GPSclass()
         {
             init_gps_port();
-            if (!GPS_found_flag)
-                GPS_not_found();
-
+            UTC = "empty";
+            Latitude = "empty";
+            Longitude = "empty";
+            Velocity = "empty";
+            Altitude = "empty";
         }
 
         private void init_gps_port()

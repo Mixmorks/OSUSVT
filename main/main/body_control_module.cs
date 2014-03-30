@@ -12,13 +12,11 @@ namespace BodyCM
             public string Teststring { get; set; }
             
             public bool body_control_module_found_flag = false;
-            public static SerialPort body_control_module_port;
+            public SerialPort body_control_module_port;
 
             public BodyControlModuleclass()
             {
                 init_body_control_port();
-                if (!body_control_module_found_flag)
-                    ;//Do something.
             }
 
             private void init_body_control_port()
@@ -53,7 +51,7 @@ namespace BodyCM
                 }
                 catch(TimeoutException)
                 { 
-                    //We can add code in here to indicate to the driver that communication with the Body Control Module has been lost.
+                    //Not sure if we actually need this, considering that read_port is only called when we have data received.
                 }
 
             }
