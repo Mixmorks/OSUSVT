@@ -6,14 +6,28 @@ using System.Data.SqlClient;
 
 namespace SQL
 {
+    //Static Information for easy changes
+    class connection
+    {
+        //Need to know this to open a mysql prompt and initially configure the database
+        public const string pathMYSQL = "C:\\Program Files\\MySQL\\MySQL Server 5.6\\bin\\mysql.exe"; //Don't forget to escape your '\'s 
+
+        public const string sqlUsername = "OSUSVTuser";
+        public const string sqlPassword = "ManBearPig";
+        public const string sqlDatabase = "TELEMETRY";
+        public const int sqlTimeout = 30;
+
+    }
     class SQLclass
     {
-        private static SqlConnection svt_telemetry = new SqlConnection("user id=REDACTED;" +
-                                       "password=REDACTED;server=JAN-PC\\SQLEXPRESS;" +
-                                       "Trusted_Connection=yes;" +
-                                       "database=SVTTELEMETRY; " +
-                                       "connection timeout=30");
-
+        private static SqlConnection svt_telemetry = new SqlConnection("user id=OSUSVTuser; database=telemetry; password=ManBearPig; server=localhost;");
+            /*"user id='"+connection.sqlUsername+"';" +
+                                       "password='"+connection.sqlPassword+"';"+
+                                       "database='"+connection.sqlDatabase+"'; " +
+                                       "connection timeout="+connection.sqlTimeout+";");
+        /*
+        SqlCommand add_table = new SqlCommand("",svt_telemetry);
+         */
         public SQLclass()
         {
             svt_telemetry.Open();
