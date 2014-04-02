@@ -42,7 +42,7 @@ namespace SQL
                  */
                 if (exep.Number == 0) //Permissions Denied, we can attempt to fix this
                 {
-                    string sqlRoot = Microsoft.VisualBasic.Interaction.InputBox("In order to Please Enter MySQL root password: ", "Root Password", "OSUSVT");
+                    string sqlRoot = Microsoft.VisualBasic.Interaction.InputBox("In order to configure MySQL, Please Enter MySQL root password: ", "Root Password", "OSUSVT");
                     try
                     {
                         MySqlConnection setupdatabase = new MySqlConnection("uid=root; server=localhost; password=" + sqlRoot + ";");
@@ -50,7 +50,7 @@ namespace SQL
                         MySqlCommand adddata = new MySqlCommand("DROP USER '" + connection.sqlUsername + "'; ", setupdatabase);
                         adddata.ExecuteNonQuery();
                     }
-                    catch (MySql.Data.MySqlClient.MySqlException ex)
+                    catch (MySql.Data.MySqlClient.MySqlException)
                     {
                         ;//If there is a probelm droping the user, we don't care about it, it probably did not exist
                     }
@@ -65,6 +65,8 @@ namespace SQL
                         MySqlCommand adddata = new MySqlCommand(CommandText, setupdatabase);
                         adddata.ExecuteNonQuery();
 
+                        //Last Step, Open it up...
+                        svt_telemetry.Open();
                     }
                     catch (MySql.Data.MySqlClient.MySqlException ex)
                     {
@@ -74,7 +76,22 @@ namespace SQL
                     
                 }
             }
-
+            //
+            //Create table(s)
+            //
+            MySqlCommand set_table = new MySqlCommand("CREATE TABLE IF NOT EXISTS telemetrytable (Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, RecDate TEXT, RecTime TEXT, Longitude TEXT, Latitude TEXT, Altitude DECIMAL, Velocity DECIMAL);", svt_telemetry);
+            set_table.ExecuteNonQuery();
+        }
+        //Gets the last 5 rows from the database and averages them
+        public double get_average(string fieldname, int numRecords)
+        {
+            const string tablename = "telemetrytable";
+            string CommandText = "SELECT SUM( " + fieldname + " ) FROM (SELECT " + fieldname + " FROM " + tablename + " ORDER BY Id DESC LIMIT "+numRecords+" ) AS subquery;";
+            MySqlCommand select = new MySqlCommand(CommandText, svt_telemetry);
+            /*select.Parameters.AddWithValue("@fieldname", fieldname);
+            select.Parameters.AddWithValue("@number", numRecords);
+            */ //Parameterizing Did not work, because it adds "" around the parameters
+            return Convert.ToDouble(select.ExecuteScalar());
         }
 
         public void update_database(string date, string utc, string longitude, string latitude, string velocity, string altitude)
@@ -87,7 +104,8 @@ namespace SQL
             add_to_database.Parameters.AddWithValue("@latitude", latitude);
             add_to_database.Parameters.AddWithValue("@altitude", altitude);
             add_to_database.Parameters.AddWithValue("@velocity", velocity);
-            add_to_database.CommandText = "INSERT INTO SVTTELEMETRYtable(Date,UTC,Longitude,Latitude,Altitude,Velocity) VALUES (@date,@utc,@longitude,@latitude,@altitude,@velocity)";
+            //If Structure Changes remember to change the CREATE TABLE command in the constructer and delete the database...
+            add_to_database.CommandText = "INSERT INTO telemetrytable(RecDate,RecTime,Longitude,Latitude,Altitude,Velocity) VALUES (@date,@utc,@longitude,@latitude,@altitude,@velocity)";
             add_to_database.ExecuteNonQuery();
         }
     }
