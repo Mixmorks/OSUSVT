@@ -10,16 +10,16 @@ namespace SQL
     //Static Information for easy changes
     class connection
     {
-        public const string sqlUsername = "OSUSVT";
-        public const string sqlPassword = "ManBearPig";
-        public const string sqlDatabase = "TELEMETRY";
+        public const string sql_username = "OSUSVT";
+        public const string sql_password = "ManBearPig";
+        public const string sql_database = "TELEMETRY";
     }
     class SQLclass
     {
         private static MySqlConnection svt_telemetry = new MySqlConnection(
-                                       "user id="+connection.sqlUsername+";" +
-                                       "password="+connection.sqlPassword+";"+
-                                       "database="+connection.sqlDatabase+";" +
+                                       "user id="+connection.sql_username+";" +
+                                       "password="+connection.sql_password+";"+
+                                       "database="+connection.sql_database+";" +
                                        "server=localhost;"
                                        );
         /*
@@ -47,7 +47,7 @@ namespace SQL
                     {
                         MySqlConnection setupdatabase = new MySqlConnection("uid=root; server=localhost; password=" + sqlRoot + ";");
                         setupdatabase.Open();
-                        MySqlCommand adddata = new MySqlCommand("DROP USER '" + connection.sqlUsername + "'; ", setupdatabase);
+                        MySqlCommand adddata = new MySqlCommand("DROP USER '" + connection.sql_username + "'; ", setupdatabase);
                         adddata.ExecuteNonQuery();
                     }
                     catch (MySql.Data.MySqlClient.MySqlException)
@@ -58,9 +58,9 @@ namespace SQL
                     {
                         MySqlConnection setupdatabase = new MySqlConnection("uid=root; server=localhost; password=" + sqlRoot + ";");
                         setupdatabase.Open();
-                        string CommandText = "CREATE DATABASE IF NOT EXISTS " + connection.sqlDatabase + "; " +
-                            "CREATE USER '" + connection.sqlUsername + "'@'%' IDENTIFIED BY '" + connection.sqlPassword + "'; " +
-                            "GRANT ALL PRIVILEGES ON " + connection.sqlDatabase + ".* TO '" + connection.sqlUsername + "'@'%'; ";
+                        string CommandText = "CREATE DATABASE IF NOT EXISTS " + connection.sql_database + "; " +
+                            "CREATE USER '" + connection.sql_username + "'@'%' IDENTIFIED BY '" + connection.sql_password + "'; " +
+                            "GRANT ALL PRIVILEGES ON " + connection.sql_database + ".* TO '" + connection.sql_username + "'@'%'; ";
 
                         MySqlCommand adddata = new MySqlCommand(CommandText, setupdatabase);
                         adddata.ExecuteNonQuery();
