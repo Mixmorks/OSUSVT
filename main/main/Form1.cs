@@ -8,15 +8,21 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO.Ports;
 
+//Video Libraries. These are part of the AForge Framework stored under C:/Programs(x86)/AForge.NET/framework/release/
+// and have been added through Project --> Add Reference
+using AForge.Video;
+using AForge.Video.DirectShow;
+
 namespace main
 {
     public partial class mainForm : Form
     {
-        public delegate void invoke_ui_update();
+        private delegate void invoke_ui_update();
 
         GPS.GPSclass gps_data = new GPS.GPSclass();
         BodyCM.BodyControlModuleclass body_control_data = new BodyCM.BodyControlModuleclass();
-        SQL.SQLclass sql_interface = new SQL.SQLclass();
+        USBcam.USBcamclass camera_data = new USBcam.USBcamclass();
+        //SQL.SQLclass sql_interface = new SQL.SQLclass();
 
         public mainForm()
         {
@@ -25,6 +31,8 @@ namespace main
                 gps_data.gps_port.DataReceived += handle_GPS_data; //Shortcut way of writing port.DataReceived += new SerialDataReceivedEventHandler(eventhandler)
             if(body_control_data.body_control_module_found_flag)
                 body_control_data.body_control_module_port.DataReceived += handle_body_control_data;
+
+            camera_data.camera_stream.NewFrame += handle_new_camera_frame;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -35,13 +43,17 @@ namespace main
             if(body_control_data.body_control_module_found_flag)
                 body_control_data.body_control_module_port.Write("buttonaa");
 
+            //sql_interface.update_database(DateTime.Now.ToString("MM/dd/yyyy"), DateTime.Now.ToString("HH:mm:ss tt"), gps_data.Longitude, gps_data.Latitude, gps_data.Velocity, gps_data.Altitude);
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
         }
 
         private void handle_GPS_data(object sender, SerialDataReceivedEventArgs e)
         {
             gps_data.handle_GPS_data_available();
-            sql_interface.update_database(DateTime.Now.ToString("MM/dd/yyyy"), DateTime.Now.ToString("HH:mm:ss tt"), gps_data.Longitude, gps_data.Latitude, gps_data.Velocity, gps_data.Altitude);
             update_ui(); //handle_GPS_data is on a separate thread so update_ui takes us back to the main thread in order to update
         }
 
@@ -49,6 +61,12 @@ namespace main
         {
             body_control_data.read_port();
             update_ui();
+        }
+
+        private void handle_new_camera_frame(object sender, NewFrameEventArgs camera_event_data)
+        {
+            camera_data.fetch_new_image(camera_event_data);
+            camera_window.Image = camera_data.camera_image;
         }
 
         private void update_ui()

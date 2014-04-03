@@ -29,7 +29,7 @@ namespace SQL
             add_to_database.Parameters.AddWithValue("@latitude", latitude);
             add_to_database.Parameters.AddWithValue("@altitude", altitude);
             add_to_database.Parameters.AddWithValue("@velocity", velocity);
-            add_to_database.CommandText = "INSERT INTO SVTTELEMETRYtable(Date,UTC,Longitude,Latitude,Altitude,Velocity) VALUES (@date,@utc,@longitude,@latitude,@altitude,@velocity)";
+            add_to_database.CommandText = "INSERT INTO SVTTELEMETRYdata(Date,UTC,Longitude,Latitude,Altitude,Velocity) VALUES (@date,@utc,@longitude,@latitude,@altitude,@velocity)";
             add_to_database.ExecuteNonQuery();
         }
     }

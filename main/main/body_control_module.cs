@@ -16,6 +16,7 @@ namespace BodyCM
 
             public BodyControlModuleclass()
             {
+                Teststring = "";
                 init_body_control_port();
             }
 

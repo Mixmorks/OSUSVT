@@ -44,7 +44,7 @@ namespace GPS
                 gps_port = new SerialPort(port, 9600);
                 gps_port.ReadTimeout = 1000; //ReadTimeout is important, else (if no data is available) the program will freeze.
                 gps_port.Open();
-                
+
                 try //Reading data from that port for a second.
                 {
                     potential_GPS_data = gps_port.ReadLine(); //If data exists, read it.
