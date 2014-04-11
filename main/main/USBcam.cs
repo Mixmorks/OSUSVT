@@ -20,8 +20,17 @@ namespace USBcam
         public USBcamclass()
         {
             available_cameras = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+
+            try
+            {
                 camera_stream = new VideoCaptureDevice(available_cameras[0].MonikerString); //Currently the System will use the first camera found.
                 camera_stream.Start();
+            }
+            catch (ArgumentOutOfRangeException) 
+            { 
+                //No Camera was found.
+            }
+            return;
         }
 
         public void fetch_new_image(NewFrameEventArgs camera_event_data)

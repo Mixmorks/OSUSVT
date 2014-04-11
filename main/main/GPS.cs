@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO.Ports;
+using System.Threading;
 
 namespace GPS
 {
@@ -27,54 +28,74 @@ namespace GPS
         
         public GPSclass()
         {
-            init_gps_port();
-            UTC = "empty";
-            Latitude = "empty";
-            Longitude = "empty";
-            Velocity = "empty";
-            Altitude = "empty";
+            Thread gps_initializer = new Thread(init_gps_port);
+            gps_initializer.Start();
         }
 
-        private void init_gps_port()
+        public void init_gps_port()
         {
-            string potential_GPS_data;
-            string[] valid_ports = SerialPort.GetPortNames(); //Makes an array of available port names
-            foreach (string port in valid_ports) //Cycles through each individual port 
+            string potential_GPS_data ="";
+            bool port_is_open = false;
+            string[] valid_ports; //Makes an array of available port names
+
+            Latitude = "Initializing...";
+            Longitude = "Initializing...";
+            Sat_count = "Initializing...";
+            Velocity = "Initializing...";
+            Altitude = "Initializing...";
+            Bearing = "Initializing...";
+            Quality = "Initializing...";
+            NoS = "Initializing...";
+            EoW = "Initializing...";
+            UTC = "Initializing...";
+
+            while (!GPS_found_flag)
             {
-                gps_port = new SerialPort(port, 9600);
-                gps_port.ReadTimeout = 1000; //ReadTimeout is important, else (if no data is available) the program will freeze.
-                gps_port.Open();
+                valid_ports = SerialPort.GetPortNames();
 
-                try //Reading data from that port for a second.
+                foreach (string port in valid_ports) //Cycles through each individual port 
                 {
-                    potential_GPS_data = gps_port.ReadLine(); //If data exists, read it.
+                    gps_port = new SerialPort(port, 9600);
+                    gps_port.ReadTimeout = 1000000; //ReadTimeout is important, else the thread will never scan another port.
 
-                    if (potential_GPS_data.Contains("$GPRMC") || potential_GPS_data.Contains("$GPGGA")) //Check if it contains one of the two GPS keywords.
+                    try
                     {
-                        GPS_found_flag = true; //If so, yay! Set flag and keep port open.
-                        return;
+                        gps_port.Open();
+                        port_is_open = true;
                     }
-                }
-                catch (TimeoutException) { }  
+                    catch (UnauthorizedAccessException) //We need to catch this because both the thread that builds the GPS and the thread that builds the BodyControlModule are trying to access the ports.
+                    {
+                        port_is_open = false;
+                    }
 
-                gps_port.Close(); //If not close port and move to next port.
+                    if (port_is_open) //This means that we have successfully fetched a port and opened it, now we can 
+                    {
+                        try //Reading data from that port for a second.
+                        {
+                            try
+                            {
+                                potential_GPS_data = gps_port.ReadLine(); //If data exists, read it.
+                            }
+                            catch (InvalidOperationException) { }
+
+                            if (potential_GPS_data.Contains("$GPRMC") || potential_GPS_data.Contains("$GPGGA")) //Check if it contains one of the two GPS keywords.
+                            {
+                                GPS_found_flag = true; //If so, yay! Set flag and keep port open.
+                                gps_port.DataReceived += handle_GPS_data_available; //Shortcut way of writing port.DataReceived += new SerialDataReceivedEventHandler(eventhandler)
+                                return;
+                            }
+                        }
+                        catch (TimeoutException) { }
+
+                        gps_port.Close(); //If not close port and move to next port.
+                    }
+
+                }
             }
             return;
         }
 
-        private void GPS_not_found()
-        {
-            Latitude = "GPS not found.";
-            Longitude = "GPS not found.";
-            Sat_count = "GPS not found.";
-            Velocity = "GPS not found.";
-            Altitude = "GPS not found.";
-            Bearing = "GPS not found.";
-            NoS = "GPS not found.";
-            EoW = "GPS not found.";
-        }
-
-        public void handle_GPS_data_available() //This needs to be an event.
+        public void handle_GPS_data_available(object sender, SerialDataReceivedEventArgs e) //This needs to be an event.
         {
 
             string gps_serial_data;
@@ -143,7 +164,7 @@ namespace GPS
             
             }catch (TimeoutException)
             {
-                GPS_not_found(); //We can add code in here to indicate to the driver that communication with the GPS has been lost.
+               //We can add code in here to indicate to the driver that communication with the GPS has been lost.
             }
 
         }
