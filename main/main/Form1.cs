@@ -24,7 +24,7 @@ namespace main
         GPS.GPSclass gps_data = new GPS.GPSclass();
         BodyCM.BodyControlModuleclass body_control_data = new BodyCM.BodyControlModuleclass();
         USBcam.USBcamclass camera_data = new USBcam.USBcamclass();
-        SQL.SQLclass sql_interface = new SQL.SQLclass();
+        //SQL.SQLclass sql_interface = new SQL.SQLclass();
 
         public mainForm()
         {
