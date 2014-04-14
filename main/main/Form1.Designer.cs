@@ -28,39 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textbox = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.button1 = new System.Windows.Forms.Button();
             this.portbox = new System.Windows.Forms.Label();
             this.conupdate = new System.Windows.Forms.Label();
-            this.latitude = new System.Windows.Forms.Label();
-            this.longitude = new System.Windows.Forms.Label();
-            this.satcount = new System.Windows.Forms.Label();
             this.velocity = new System.Windows.Forms.Label();
-            this.altitude = new System.Windows.Forms.Label();
-            this.bearing = new System.Windows.Forms.Label();
-            this.nos = new System.Windows.Forms.Label();
-            this.eow = new System.Windows.Forms.Label();
             this.camera_window = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.camera_window)).BeginInit();
             this.SuspendLayout();
-            // 
-            // textbox
-            // 
-            this.textbox.Location = new System.Drawing.Point(0, 0);
-            this.textbox.Name = "textbox";
-            this.textbox.Size = new System.Drawing.Size(100, 23);
-            this.textbox.TabIndex = 12;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button1.Location = new System.Drawing.Point(17, 361);
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button1.Location = new System.Drawing.Point(2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(215, 152);
+            this.button1.Size = new System.Drawing.Size(136, 255);
             this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -68,7 +60,7 @@
             // 
             this.portbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.portbox.AutoSize = true;
-            this.portbox.Location = new System.Drawing.Point(17, 340);
+            this.portbox.Location = new System.Drawing.Point(343, 45);
             this.portbox.Name = "portbox";
             this.portbox.Size = new System.Drawing.Size(47, 13);
             this.portbox.TabIndex = 2;
@@ -77,124 +69,89 @@
             // conupdate
             // 
             this.conupdate.AutoSize = true;
-            this.conupdate.Location = new System.Drawing.Point(17, 314);
+            this.conupdate.Location = new System.Drawing.Point(206, 30);
             this.conupdate.Name = "conupdate";
             this.conupdate.Size = new System.Drawing.Size(92, 13);
             this.conupdate.TabIndex = 3;
             this.conupdate.Text = "Constant Updates";
             // 
-            // latitude
-            // 
-            this.latitude.AutoSize = true;
-            this.latitude.Location = new System.Drawing.Point(14, 9);
-            this.latitude.Name = "latitude";
-            this.latitude.Size = new System.Drawing.Size(41, 13);
-            this.latitude.TabIndex = 4;
-            this.latitude.Text = "latitude";
-            // 
-            // longitude
-            // 
-            this.longitude.AutoSize = true;
-            this.longitude.Location = new System.Drawing.Point(14, 23);
-            this.longitude.Name = "longitude";
-            this.longitude.Size = new System.Drawing.Size(50, 13);
-            this.longitude.TabIndex = 5;
-            this.longitude.Text = "longitude";
-            // 
-            // satcount
-            // 
-            this.satcount.AutoSize = true;
-            this.satcount.Location = new System.Drawing.Point(14, 36);
-            this.satcount.Name = "satcount";
-            this.satcount.Size = new System.Drawing.Size(48, 13);
-            this.satcount.TabIndex = 6;
-            this.satcount.Text = "satcount";
-            // 
             // velocity
             // 
             this.velocity.AutoSize = true;
-            this.velocity.Location = new System.Drawing.Point(876, 10);
+            this.velocity.Location = new System.Drawing.Point(863, 279);
             this.velocity.Name = "velocity";
             this.velocity.Size = new System.Drawing.Size(43, 13);
             this.velocity.TabIndex = 7;
             this.velocity.Text = "velocity";
             // 
-            // altitude
-            // 
-            this.altitude.AutoSize = true;
-            this.altitude.Location = new System.Drawing.Point(14, 62);
-            this.altitude.Name = "altitude";
-            this.altitude.Size = new System.Drawing.Size(41, 13);
-            this.altitude.TabIndex = 8;
-            this.altitude.Text = "altitude";
-            // 
-            // bearing
-            // 
-            this.bearing.AutoSize = true;
-            this.bearing.Location = new System.Drawing.Point(14, 75);
-            this.bearing.Name = "bearing";
-            this.bearing.Size = new System.Drawing.Size(42, 13);
-            this.bearing.TabIndex = 9;
-            this.bearing.Text = "bearing";
-            // 
-            // nos
-            // 
-            this.nos.AutoSize = true;
-            this.nos.Location = new System.Drawing.Point(14, 88);
-            this.nos.Name = "nos";
-            this.nos.Size = new System.Drawing.Size(24, 13);
-            this.nos.TabIndex = 10;
-            this.nos.Text = "nos";
-            // 
-            // eow
-            // 
-            this.eow.AutoSize = true;
-            this.eow.Location = new System.Drawing.Point(14, 101);
-            this.eow.Name = "eow";
-            this.eow.Size = new System.Drawing.Size(27, 13);
-            this.eow.TabIndex = 11;
-            this.eow.Text = "eow";
-            // 
             // camera_window
             // 
-            this.camera_window.Location = new System.Drawing.Point(3, 0);
+            this.camera_window.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.camera_window.Location = new System.Drawing.Point(121, 61);
             this.camera_window.Name = "camera_window";
-            this.camera_window.Size = new System.Drawing.Size(929, 523);
+            this.camera_window.Size = new System.Drawing.Size(536, 382);
+            this.camera_window.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.camera_window.TabIndex = 13;
             this.camera_window.TabStop = false;
             // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.AutoSize = true;
-            this.button2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button2.Location = new System.Drawing.Point(691, 361);
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button2.Location = new System.Drawing.Point(645, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(228, 152);
+            this.button2.Size = new System.Drawing.Size(136, 255);
             this.button2.TabIndex = 15;
-            this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Transparent;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(2, 252);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(138, 235);
+            this.button3.TabIndex = 16;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.Transparent;
+            this.button4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button4.BackgroundImage")));
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
+            this.button4.Location = new System.Drawing.Point(643, 252);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(138, 235);
+            this.button4.TabIndex = 17;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = false;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(931, 525);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(780, 486);
+            this.Controls.Add(this.camera_window);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.eow);
-            this.Controls.Add(this.nos);
-            this.Controls.Add(this.bearing);
-            this.Controls.Add(this.altitude);
             this.Controls.Add(this.velocity);
-            this.Controls.Add(this.satcount);
-            this.Controls.Add(this.longitude);
-            this.Controls.Add(this.latitude);
             this.Controls.Add(this.conupdate);
             this.Controls.Add(this.portbox);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textbox);
-            this.Controls.Add(this.camera_window);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "mainForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.camera_window)).EndInit();
@@ -205,20 +162,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Label textbox;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label portbox;
         private System.Windows.Forms.Label conupdate;
-        private System.Windows.Forms.Label latitude;
-        private System.Windows.Forms.Label longitude;
-        private System.Windows.Forms.Label satcount;
         private System.Windows.Forms.Label velocity;
-        private System.Windows.Forms.Label altitude;
-        private System.Windows.Forms.Label bearing;
-        private System.Windows.Forms.Label nos;
-        private System.Windows.Forms.Label eow;
         private System.Windows.Forms.PictureBox camera_window;
-        private System.Windows.Forms.Button button2;
+        
     }
 }
 
