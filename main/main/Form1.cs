@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.IO.Ports;
 
 //Video Libraries. These are part of the AForge Framework stored under C:/Programs(x86)/AForge.NET/framework/release/
-// and have been added through Project --> Add Reference
+// and have been added through Project --> Add Reference. We need these in here to be able to access the .NewFrame event.
 using AForge.Video;
 using AForge.Video.DirectShow;
 
@@ -18,10 +18,14 @@ namespace main
 {
     public partial class mainForm : Form
     {
-        private Timer ui_update_timer = new Timer();
+        private Timer ui_update_timer = new Timer(); //This timer will update the UI at 100 ms intervals.
 
         #region Variables for Blinkers
-        private Timer blinker_timer = new Timer();
+        /*
+         * Every timer has 2 variables: blinker_states tells us if the timer has been activated and
+         * blinker_image_state helps us switch the blinker button on and off.
+         */
+        private Timer blinker_timer = new Timer(); //This timer will have the blinker change every 700 ms.
 
         bool left_blinker_state = false;
         bool left_button_image_state = false;
@@ -32,40 +36,44 @@ namespace main
 
         #endregion
 
+        //Delegates can be used to call functions of equal return type and arguments. This delegate is used to handle the new_camera_frame envent.
         private delegate void camera_image_delegate(object sender, NewFrameEventArgs NewCameraInformation);
 
-        int count = 0;
+        int count = 0; //This variable doesn't serve a particular purpose.
 
+        //This block initializes all the different modules of the car. Have a look at the corresponding class definitions to see the constructor.
         GPS.GPSclass gps_data = new GPS.GPSclass();
         BodyCM.BodyControlModuleclass body_control_data = new BodyCM.BodyControlModuleclass();
         USBcam.USBcamclass camera_data = new USBcam.USBcamclass();
         //SQL.SQLclass sql_interface = new SQL.SQLclass();
 
-        public mainForm()
+        public mainForm() //Constructor for main form. In here I set timers and assign functions to events.
         {
             InitializeComponent();
 
-            ui_update_timer.Tick += new EventHandler(update_ui);
-            ui_update_timer.Interval = 100;
+            ui_update_timer.Tick += new EventHandler(update_ui); //This has the update_ui function called with every tick of the timer.
+            ui_update_timer.Interval = 100;                      //ui_update_timer will 'tick' every 100 ms.
             ui_update_timer.Start();
 
-            blinker_timer.Interval = 700;
+            blinker_timer.Interval = 700;                        //The reason I only initialize the timer interval here is because
+                                                                 //I will call separate functions using this blinker_timer 
+                                                                 //(depending on which blinker we decide to turn on).
 
-            camera_data.camera_stream.NewFrame += handle_new_camera_frame;
+            camera_data.camera_stream.NewFrame += handle_new_camera_frame; //Connects the handle_new_camera_frame function to the NewFrame event of the camera stream.
 
         }
         #region Upper Left Button Click Event
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) //This event is called when the upper left button on the form is pushed.
         {
             #region Checking for other blinker states to turn off
-            if (right_blinker_state)
+            if (right_blinker_state) //If the right blinker is turned on we need to turn it off and reset the button.
             {
-                right_blinker_state = false;
-                button2.Image = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/UpperRightButton.png");
+                right_blinker_state = false; //Set right blinker to off.
+                button2.Image = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/UpperRightButton.png"); //Turn image back to normal
                 blinker_timer.Stop();
-                blinker_timer.Tick -= right_blink_handler;
+                blinker_timer.Tick -= right_blink_handler; //Unhook the right_blink_handler function from the timer_tick event.
             }
-            if (emergency_blinker_state)
+            if (emergency_blinker_state) //Same as with right_blinker_state
             {
                 emergency_blinker_state = false;
                 button3.Image = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/LowerLeftButton.png");
@@ -74,18 +82,18 @@ namespace main
             }
             #endregion
 
-            if (!left_blinker_state)
+            if (!left_blinker_state) //If blinker is off
             {
-                left_blinker_state = true;
-                blinker_timer.Tick += left_blink_handler;
-                blinker_timer.Start();
+                left_blinker_state = true; //Turn blinker on
+                blinker_timer.Tick += left_blink_handler; //Connect left_blink_handler to timer.Tick event.
+                blinker_timer.Start(); //Start timer.
             }
             else 
             {
-                left_blinker_state = false;
+                left_blinker_state = false; //Turn blinker off
                 blinker_timer.Stop();
-                blinker_timer.Tick -= left_blink_handler;
-                button1.Image = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/UpperLeftButton.png");
+                blinker_timer.Tick -= left_blink_handler; //Unhook left_blink_handler from timer.Tick event
+                button1.Image = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/UpperLeftButton.png"); //Reset image.
 
             }
             
@@ -167,12 +175,12 @@ namespace main
         }
         #endregion
 
-        private void handle_new_camera_frame(object sender, NewFrameEventArgs camera_event_data)
+        private void handle_new_camera_frame(object sender, NewFrameEventArgs camera_event_data) //This will update the camera_window whenever there is a new image available.
         {
-            camera_data.fetch_new_image(camera_event_data);
+            camera_data.fetch_new_image(camera_event_data); //Updates the image bitmap in the camera_data class.
             if (camera_window.InvokeRequired) //These shenanigans will allow the camera frame to resize should the image be resized during runtime.
             {
-                camera_image_delegate camera_image_invoke = new camera_image_delegate(handle_new_camera_frame);
+                camera_image_delegate camera_image_invoke = new camera_image_delegate(handle_new_camera_frame); //Watch my youtube video on Invokes for explanation.
                 Invoke(camera_image_invoke,new Object[]{sender,camera_event_data});
             }
             else
@@ -181,7 +189,7 @@ namespace main
             }      
         }
 
-        private void update_ui(object sender, EventArgs e)
+        private void update_ui(object sender, EventArgs e) //Obviously this will need some more code for every ui_element that we want to update.
         {
                 conupdate.Text = body_control_data.Teststring;
                 count++;
@@ -189,15 +197,15 @@ namespace main
 
         #region Code that handles the blinkers
 
-        private void left_blink_handler(object sender, EventArgs e)
+        private void left_blink_handler(object sender, EventArgs e) //These handlers will switch the buttons between an on and off state to create a blinking effect.
         {
             if (!left_button_image_state)
             {
                 button1.Image = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/UpperLeftButtonDark.png");
                 left_button_image_state = true;
 
-                if (body_control_data.body_control_module_found_flag)
-                    body_control_data.body_control_module_port.Write("leftblnk");
+                if (body_control_data.body_control_module_found_flag) //Making sure that we only write to the port if it is actually open.
+                    body_control_data.body_control_module_port.Write("leftblnk"); //Write an eventspecific string to the Arduino
 
             }
             else

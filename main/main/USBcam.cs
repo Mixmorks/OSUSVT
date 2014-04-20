@@ -19,7 +19,7 @@ namespace USBcam
 
         public USBcamclass()
         {
-            available_cameras = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            available_cameras = new FilterInfoCollection(FilterCategory.VideoInputDevice); //Find what camera devices are registered.
 
             try
             {
@@ -28,15 +28,14 @@ namespace USBcam
             }
             catch (ArgumentOutOfRangeException) 
             { 
-                //No Camera was found.
+                //No Camera was found. Screen will stay empty.
             }
             return;
         }
 
         public void fetch_new_image(NewFrameEventArgs camera_event_data)
         {
-            camera_image = (Bitmap)camera_event_data.Frame.Clone();
-            camera_image.RotateFlip(RotateFlipType.Rotate180FlipY);
-        }
+            camera_image = (Bitmap)camera_event_data.Frame.Clone(); //Fetch image from camera_buffer
+            camera_image.RotateFlip(RotateFlipType.Rotate180FlipY); //Mirror along the central Y axis to put things on the correct side.
     }
 }
