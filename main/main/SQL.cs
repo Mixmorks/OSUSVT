@@ -92,36 +92,40 @@ namespace SQL
             //
             //Create table(s)
             //
-            MySqlCommand set_table = new MySqlCommand("CREATE TABLE IF NOT EXISTS telemetrytable (Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, RecDate TEXT, RecTime TEXT, Longitude TEXT, Latitude TEXT, Altitude DECIMAL, Velocity DECIMAL);", svt_telemetry);
+            MySqlCommand set_table = new MySqlCommand("CREATE TABLE IF NOT EXISTS telemetrytable (Id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT, RecDate TEXT, RecTime TEXT, Longitude FLOAT, Latitude FLOAT, Altitude DECIMAL, Velocity DECIMAL);", svt_telemetry);
             try
             {
                 set_table.ExecuteNonQuery();
             }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
-            {
-                ;
-            }
+            catch (MySql.Data.MySqlClient.MySqlException){ }
+        
         }
         //Gets the last 5 rows from the database and averages them
         public double get_average(string fieldname, int numRecords)
         {
-            const string tablename = "telemetrytable";
-            string CommandText = "SELECT SUM( " + fieldname + " ) FROM (SELECT " + fieldname + " FROM " + tablename + " ORDER BY Id DESC LIMIT "+numRecords+" ) AS subquery;";
-            MySqlCommand select = new MySqlCommand(CommandText, svt_telemetry);
-            /*select.Parameters.AddWithValue("@fieldname", fieldname);
-            select.Parameters.AddWithValue("@number", numRecords);
-            */ //Parameterizing Did not work, because it adds "" around the parameters
-            return Convert.ToDouble(select.ExecuteScalar());
+            try
+            {
+                const string tablename = "telemetrytable";
+                string CommandText = "SELECT SUM( " + fieldname + " ) FROM (SELECT " + fieldname + " FROM " + tablename + " ORDER BY Id DESC LIMIT " + numRecords + " ) AS subquery;";
+                MySqlCommand select = new MySqlCommand(CommandText, svt_telemetry);
+                /*select.Parameters.AddWithValue("@fieldname", fieldname);
+                select.Parameters.AddWithValue("@number", numRecords);
+                */
+                //Parameterizing Did not work, because it adds "" around the parameters
+                return Convert.ToDouble(select.ExecuteScalar()) / numRecords;
+            }catch(InvalidCastException){
+                return -666;
+            }
         }
 
-        public void update_database(string date, string utc, string longitude, string latitude, string velocity, string altitude)
+        public void update_database(string longitude, string latitude, string velocity, string altitude)
         {
             try
             {
                 MySqlCommand add_to_database = new MySqlCommand();
                 add_to_database.Connection = svt_telemetry;
-                add_to_database.Parameters.AddWithValue("@date", date); //Stackoverflow insisted this be the way this is done. I think it prevents SQL injections. Not that we should ever have to be concerned about those.
-                add_to_database.Parameters.AddWithValue("@utc", utc);
+                add_to_database.Parameters.AddWithValue("@date", DateTime.Now.ToString("M/d/yyyy")); //Stackoverflow insisted this be the way this is done. I think it prevents SQL injections. Not that we should ever have to be concerned about those.
+                add_to_database.Parameters.AddWithValue("@utc", DateTime.Now.ToString("h:mm:ss tt"));
                 add_to_database.Parameters.AddWithValue("@longitude", longitude);
                 add_to_database.Parameters.AddWithValue("@latitude", latitude);
                 add_to_database.Parameters.AddWithValue("@altitude", altitude);

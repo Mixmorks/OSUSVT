@@ -19,6 +19,7 @@ namespace main
     public partial class mainForm : Form
     {
         private Timer ui_update_timer = new Timer(); //This timer will update the UI at 100 ms intervals.
+        private Timer sql_update_timer = new Timer();
 
         #region Variables for Blinkers
         /*
@@ -45,7 +46,7 @@ namespace main
         GPS.GPSclass gps_data = new GPS.GPSclass();
         BodyCM.BodyControlModuleclass body_control_data = new BodyCM.BodyControlModuleclass();
         USBcam.USBcamclass camera_data = new USBcam.USBcamclass();
-        //SQL.SQLclass sql_interface = new SQL.SQLclass();
+        SQL.SQLclass sql_interface = new SQL.SQLclass();
 
         public mainForm() //Constructor for main form. In here I set timers and assign functions to events.
         {
@@ -55,6 +56,10 @@ namespace main
             ui_update_timer.Interval = 100;                      //ui_update_timer will 'tick' every 100 ms.
             ui_update_timer.Start();
 
+            sql_update_timer.Tick += new EventHandler(update_sql_database);
+            sql_update_timer.Interval = 1000;
+            sql_update_timer.Start();
+
             blinker_timer.Interval = 700;                        //The reason I only initialize the timer interval here is because
                                                                  //I will call separate functions using this blinker_timer 
                                                                  //(depending on which blinker we decide to turn on).
@@ -62,6 +67,7 @@ namespace main
             camera_data.camera_stream.NewFrame += handle_new_camera_frame; //Connects the handle_new_camera_frame function to the NewFrame event of the camera stream.
 
         }
+
         #region Upper Left Button Click Event
         private void button1_Click(object sender, EventArgs e) //This event is called when the upper left button on the form is pushed.
         {
@@ -174,27 +180,6 @@ namespace main
 
         }
         #endregion
-
-        private void handle_new_camera_frame(object sender, NewFrameEventArgs camera_event_data) //This will update the camera_window whenever there is a new image available.
-        {
-            camera_data.fetch_new_image(camera_event_data); //Updates the image bitmap in the camera_data class.
-            if (camera_window.InvokeRequired) //These shenanigans will allow the camera frame to resize should the image be resized during runtime.
-            {
-                camera_image_delegate camera_image_invoke = new camera_image_delegate(handle_new_camera_frame); //Watch my youtube video on Invokes for explanation.
-                Invoke(camera_image_invoke,new Object[]{sender,camera_event_data});
-            }
-            else
-            {
-                camera_window.Image = camera_data.camera_image;
-            }      
-        }
-
-        private void update_ui(object sender, EventArgs e) //Obviously this will need some more code for every ui_element that we want to update.
-        {
-                conupdate.Text = body_control_data.Teststring;
-                count++;
-        }
-
         #region Code that handles the blinkers
 
         private void left_blink_handler(object sender, EventArgs e) //These handlers will switch the buttons between an on and off state to create a blinking effect.
@@ -252,6 +237,33 @@ namespace main
         }
 
         #endregion
+
+        private void handle_new_camera_frame(object sender, NewFrameEventArgs camera_event_data) //This will update the camera_window whenever there is a new image available.
+        {
+            camera_data.fetch_new_image(camera_event_data); //Updates the image bitmap in the camera_data class.
+            if (camera_window.InvokeRequired) //These shenanigans will allow the camera frame to resize should the image be resized during runtime.
+            {
+                camera_image_delegate camera_image_invoke = new camera_image_delegate(handle_new_camera_frame); //Watch my youtube video on Invokes for explanation.
+                Invoke(camera_image_invoke,new Object[]{sender,camera_event_data});
+            }
+            else
+            {
+                camera_window.Image = camera_data.camera_image;
+            }      
+        }
+
+        private void update_ui(object sender, EventArgs e) //Obviously this will need some more code for every ui_element that we want to update.
+        {
+                conupdate.Text = Convert.ToString((Convert.ToInt16(sql_interface.get_average("velocity",5))));
+                portbox.Text = gps_data.Latitude;
+                count++;
+        }
+
+        private void update_sql_database(object sender, EventArgs e)
+        {
+            sql_interface.update_database(gps_data.Longitude, gps_data.Latitude,gps_data.Velocity,gps_data.Altitude);
+            label1.Text = Convert.ToString(count);
+        }
 
     }
 

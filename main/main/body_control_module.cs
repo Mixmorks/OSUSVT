@@ -66,21 +66,21 @@ namespace BodyCM
                 bool port_is_open = false;
                 string test_for_arduino_string = "";
 
-                while(!body_control_module_found_flag){ //Since this is running on a separate thread we don't need to worry about 
+                while(!body_control_module_found_flag){ //Since this is running on a separate thread we don't need to worry about taking up resources.
 
                     valid_ports = SerialPort.GetPortNames();
 
-                    foreach (string port in valid_ports)
+                    foreach (string port in valid_ports) //Now we want to test every available port.
                     {
-                        body_control_module_port = new SerialPort(port, 9600);
-                        body_control_module_port.ReadTimeout = 50;
+                        body_control_module_port = new SerialPort(port, 9600); //Create a new port-object with the port we're currently testing.
+                        body_control_module_port.ReadTimeout = 50; //Set read timeout to 50 milliseconds.
 
                         try
                         {
                             body_control_module_port.Open();
                             port_is_open = true;
                         }
-                        catch (UnauthorizedAccessException)
+                        catch (UnauthorizedAccessException) //This can happen because both the GPS and Arduino class are trying to work through the ports at the same time. If a conflict occurs we'll just ignore this port for now and come back to it later.
                         {
                             port_is_open = false;
                         }
@@ -88,8 +88,7 @@ namespace BodyCM
                         if (port_is_open)
                         {
 
-                            body_control_module_port.Write("initport");
-                            System.Threading.Thread.Sleep(20); //This gives the arduino a little time to respond.
+                            body_control_module_port.Write("initport"); //Here we write the initialization message to the Arduino. The Arduino will read this message and then check back with us.
 
                             try
                             {

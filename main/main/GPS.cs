@@ -40,14 +40,6 @@ namespace GPS
 
             Latitude = "Initializing...";
             Longitude = "Initializing...";
-            Sat_count = "Initializing...";
-            Velocity = "Initializing...";
-            Altitude = "Initializing...";
-            Bearing = "Initializing...";
-            Quality = "Initializing...";
-            NoS = "Initializing...";
-            EoW = "Initializing...";
-            UTC = "Initializing...";
 
             while (!GPS_found_flag)
             {
@@ -56,7 +48,7 @@ namespace GPS
                 foreach (string port in valid_ports) //Cycles through each individual port 
                 {
                     gps_port = new SerialPort(port, 9600);
-                    gps_port.ReadTimeout = 1000000; //ReadTimeout is important, else the thread will never scan another port.
+                    gps_port.ReadTimeout = 1000; //ReadTimeout is important, else the thread will never scan another port.
 
                     try
                     {
@@ -105,11 +97,11 @@ namespace GPS
             {
                 gps_serial_data = gps_port.ReadLine();
                 gps_data = gps_serial_data.Split(',');
-
-
+                
+                Latitude = gps_data[2];
                 if ((gps_data[0] == "$GPRMC") && (gps_data[2] == "A"))
                 {
-
+                    Altitude = gps_data[0];
                     /*
                     1    = UTC of position fix
                     2    = Data status (V=navigation receiver warning)

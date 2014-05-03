@@ -26,8 +26,8 @@ namespace USBcam
                 camera_stream = new VideoCaptureDevice(available_cameras[0].MonikerString); //Currently the System will use the first camera found.
                 camera_stream.Start();
             }
-            catch (ArgumentOutOfRangeException) 
-            { 
+            catch (ArgumentOutOfRangeException)
+            {
                 //No Camera was found. Screen will stay empty.
             }
             return;
@@ -37,5 +37,6 @@ namespace USBcam
         {
             camera_image = (Bitmap)camera_event_data.Frame.Clone(); //Fetch image from camera_buffer
             camera_image.RotateFlip(RotateFlipType.Rotate180FlipY); //Mirror along the central Y axis to put things on the correct side.
+        }
     }
 }

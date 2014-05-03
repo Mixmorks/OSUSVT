@@ -37,6 +37,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.camera_window)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,12 +138,22 @@
             this.button4.Text = "button4";
             this.button4.UseVisualStyleBackColor = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(406, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "label1";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(780, 486);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.camera_window);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -170,6 +181,7 @@
         private System.Windows.Forms.Label conupdate;
         private System.Windows.Forms.Label velocity;
         private System.Windows.Forms.PictureBox camera_window;
+        private System.Windows.Forms.Label label1;
         
     }
 }
