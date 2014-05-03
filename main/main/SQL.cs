@@ -15,6 +15,10 @@ namespace SQL
         public const string sql_password = "ManBearPig";
         public const string sql_database = "TELEMETRY";
         public static string sql_root = ""; //Set if cannot be configured
+
+        public const string sql_remote_username = "svtremote";
+        public const string sql_remote_password = "Phenix";
+
     }
     class SQLclass
     {
@@ -48,9 +52,22 @@ namespace SQL
             {
                 MySqlConnection setupdatabase = new MySqlConnection("uid=root; server=localhost; password=" + connection.sql_root + ";");
                 setupdatabase.Open();
+                MySqlCommand adddata = new MySqlCommand("DROP USER '" + connection.sql_remote_username + "'; ", setupdatabase);
+                adddata.ExecuteNonQuery();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException)
+            {
+                ;//If there is a probelm droping the user, we don't care about it, it probably did not exist
+            }
+            try
+            {
+                MySqlConnection setupdatabase = new MySqlConnection("uid=root; server=localhost; password=" + connection.sql_root + ";");
+                setupdatabase.Open();
                 string CommandText = "CREATE DATABASE IF NOT EXISTS " + connection.sql_database + "; " +
-                    "CREATE USER '" + connection.sql_username + "'@'%' IDENTIFIED BY '" + connection.sql_password + "'; " +
-                    "GRANT ALL PRIVILEGES ON " + connection.sql_database + ".* TO '" + connection.sql_username + "'@'%'; ";
+                    "CREATE USER '" + connection.sql_username + "'@'localhost' IDENTIFIED BY '" + connection.sql_password + "'; " +
+                    "GRANT ALL PRIVILEGES ON " + connection.sql_database + ".* TO '" + connection.sql_username + "'@'localhost'; " +
+                    "CREATE USER '" + connection.sql_remote_username + "'@'%' IDENTIFIED BY '" + connection.sql_remote_password + "'; " +
+                    "GRANT ALL ON " + "*.* TO '" + connection.sql_remote_username + "'@'%'; ";
 
 
 
