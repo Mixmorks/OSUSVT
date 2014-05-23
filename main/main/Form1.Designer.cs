@@ -29,143 +29,165 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
-            this.button1 = new System.Windows.Forms.Button();
-            this.portbox = new System.Windows.Forms.Label();
-            this.conupdate = new System.Windows.Forms.Label();
-            this.velocity = new System.Windows.Forms.Label();
+            this.left_blnk = new System.Windows.Forms.PictureBox();
+            this.right_blnk = new System.Windows.Forms.PictureBox();
+            this.emergency_lights = new System.Windows.Forms.PictureBox();
+            this.horn = new System.Windows.Forms.PictureBox();
             this.camera_window = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.velocity = new System.Windows.Forms.Label();
+            this.label_soc = new System.Windows.Forms.Label();
+            this.label_power_in = new System.Windows.Forms.Label();
+            this.label_power_out = new System.Windows.Forms.Label();
+            this.lights = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.left_blnk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.right_blnk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emergency_lights)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.horn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.camera_window)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lights)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // left_blnk
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button1.Location = new System.Drawing.Point(2, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(136, 255);
-            this.button1.TabIndex = 1;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.left_blnk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.left_blnk.BackColor = System.Drawing.Color.Transparent;
+            this.left_blnk.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("left_blnk.BackgroundImage")));
+            this.left_blnk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.left_blnk.Location = new System.Drawing.Point(2, 105);
+            this.left_blnk.Name = "left_blnk";
+            this.left_blnk.Size = new System.Drawing.Size(127, 217);
+            this.left_blnk.TabIndex = 1;
+            this.left_blnk.TabStop = false;
+            this.left_blnk.Click += new System.EventHandler(this.button1_Click);
             // 
-            // portbox
+            // right_blnk
             // 
-            this.portbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.portbox.AutoSize = true;
-            this.portbox.Location = new System.Drawing.Point(343, 45);
-            this.portbox.Name = "portbox";
-            this.portbox.Size = new System.Drawing.Size(47, 13);
-            this.portbox.TabIndex = 2;
-            this.portbox.Text = "Port Box";
+            this.right_blnk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.right_blnk.BackColor = System.Drawing.Color.Transparent;
+            this.right_blnk.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("right_blnk.BackgroundImage")));
+            this.right_blnk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.right_blnk.Location = new System.Drawing.Point(653, 105);
+            this.right_blnk.Name = "right_blnk";
+            this.right_blnk.Size = new System.Drawing.Size(127, 217);
+            this.right_blnk.TabIndex = 15;
+            this.right_blnk.TabStop = false;
+            this.right_blnk.Click += new System.EventHandler(this.button2_Click);
             // 
-            // conupdate
+            // emergency_lights
             // 
-            this.conupdate.AutoSize = true;
-            this.conupdate.Location = new System.Drawing.Point(206, 30);
-            this.conupdate.Name = "conupdate";
-            this.conupdate.Size = new System.Drawing.Size(92, 13);
-            this.conupdate.TabIndex = 3;
-            this.conupdate.Text = "Constant Updates";
+            this.emergency_lights.BackColor = System.Drawing.Color.Transparent;
+            this.emergency_lights.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("emergency_lights.BackgroundImage")));
+            this.emergency_lights.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.emergency_lights.InitialImage = null;
+            this.emergency_lights.Location = new System.Drawing.Point(653, 405);
+            this.emergency_lights.Name = "emergency_lights";
+            this.emergency_lights.Size = new System.Drawing.Size(127, 83);
+            this.emergency_lights.TabIndex = 16;
+            this.emergency_lights.TabStop = false;
+            this.emergency_lights.Text = "button3";
+            this.emergency_lights.Click += new System.EventHandler(this.button3_Click);
             // 
-            // velocity
+            // horn
             // 
-            this.velocity.AutoSize = true;
-            this.velocity.Location = new System.Drawing.Point(863, 279);
-            this.velocity.Name = "velocity";
-            this.velocity.Size = new System.Drawing.Size(43, 13);
-            this.velocity.TabIndex = 7;
-            this.velocity.Text = "velocity";
+            this.horn.BackColor = System.Drawing.Color.Transparent;
+            this.horn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("horn.BackgroundImage")));
+            this.horn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.horn.Location = new System.Drawing.Point(0, 405);
+            this.horn.Name = "horn";
+            this.horn.Size = new System.Drawing.Size(129, 82);
+            this.horn.TabIndex = 17;
+            this.horn.TabStop = false;
+            this.horn.Text = "button4";
             // 
             // camera_window
             // 
             this.camera_window.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.camera_window.Location = new System.Drawing.Point(121, 61);
+            this.camera_window.Location = new System.Drawing.Point(128, 105);
             this.camera_window.Name = "camera_window";
-            this.camera_window.Size = new System.Drawing.Size(536, 382);
+            this.camera_window.Size = new System.Drawing.Size(525, 382);
             this.camera_window.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.camera_window.TabIndex = 13;
             this.camera_window.TabStop = false;
             // 
-            // button2
+            // velocity
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button2.Location = new System.Drawing.Point(645, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(136, 255);
-            this.button2.TabIndex = 15;
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.velocity.AutoSize = true;
+            this.velocity.BackColor = System.Drawing.Color.Transparent;
+            this.velocity.Font = new System.Drawing.Font("Microsoft Sans Serif", 99.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.velocity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.velocity.Location = new System.Drawing.Point(-24, -24);
+            this.velocity.Name = "velocity";
+            this.velocity.Size = new System.Drawing.Size(213, 152);
+            this.velocity.TabIndex = 19;
+            this.velocity.Text = "88";
             // 
-            // button3
+            // label_soc
             // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(2, 252);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(138, 235);
-            this.button3.TabIndex = 16;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.label_soc.AutoSize = true;
+            this.label_soc.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_soc.Location = new System.Drawing.Point(482, 9);
+            this.label_soc.Name = "label_soc";
+            this.label_soc.Size = new System.Drawing.Size(90, 33);
+            this.label_soc.TabIndex = 20;
+            this.label_soc.Text = "SOC:";
             // 
-            // button4
+            // label_power_in
             // 
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button4.BackgroundImage")));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.Location = new System.Drawing.Point(643, 252);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(138, 235);
-            this.button4.TabIndex = 17;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = false;
+            this.label_power_in.AutoSize = true;
+            this.label_power_in.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_power_in.Location = new System.Drawing.Point(474, 40);
+            this.label_power_in.Name = "label_power_in";
+            this.label_power_in.Size = new System.Drawing.Size(99, 33);
+            this.label_power_in.TabIndex = 21;
+            this.label_power_in.Text = "Array:";
             // 
-            // label1
+            // label_power_out
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(406, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "label1";
+            this.label_power_out.AutoSize = true;
+            this.label_power_out.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_power_out.Location = new System.Drawing.Point(470, 71);
+            this.label_power_out.Name = "label_power_out";
+            this.label_power_out.Size = new System.Drawing.Size(103, 33);
+            this.label_power_out.TabIndex = 22;
+            this.label_power_out.Text = "Motor:";
+            // 
+            // lights
+            // 
+            this.lights.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("lights.BackgroundImage")));
+            this.lights.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.lights.Location = new System.Drawing.Point(653, 322);
+            this.lights.Name = "lights";
+            this.lights.Size = new System.Drawing.Size(127, 83);
+            this.lights.TabIndex = 23;
+            this.lights.TabStop = false;
+            this.lights.Click += new System.EventHandler(this.lights_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(780, 486);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lights);
+            this.Controls.Add(this.label_soc);
+            this.Controls.Add(this.left_blnk);
+            this.Controls.Add(this.right_blnk);
+            this.Controls.Add(this.emergency_lights);
+            this.Controls.Add(this.horn);
             this.Controls.Add(this.camera_window);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label_power_in);
+            this.Controls.Add(this.label_power_out);
             this.Controls.Add(this.velocity);
-            this.Controls.Add(this.conupdate);
-            this.Controls.Add(this.portbox);
-            this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "mainForm";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.left_blnk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.right_blnk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emergency_lights)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.horn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.camera_window)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lights)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,15 +195,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label portbox;
-        private System.Windows.Forms.Label conupdate;
-        private System.Windows.Forms.Label velocity;
+        private System.Windows.Forms.PictureBox left_blnk;
+        private System.Windows.Forms.PictureBox right_blnk;
+
+        private System.Windows.Forms.PictureBox emergency_lights;
+        private System.Windows.Forms.PictureBox lights;
+
+        private System.Windows.Forms.PictureBox horn;
         private System.Windows.Forms.PictureBox camera_window;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_soc;
+        private System.Windows.Forms.Label label_power_in;
+        private System.Windows.Forms.Label label_power_out;
+        private System.Windows.Forms.Label velocity;
+        
+        
         
     }
 }

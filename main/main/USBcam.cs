@@ -15,6 +15,7 @@ namespace USBcam
     {
         private FilterInfoCollection available_cameras; //This is used to fetch a list of all the available cameras.
         public VideoCaptureDevice camera_stream; //This is the actual camera feed that will give us the image.
+        public bool usb_camera_found_flag = false;
         public Bitmap camera_image { get; set; }
 
         public USBcamclass()
@@ -25,6 +26,7 @@ namespace USBcam
             {
                 camera_stream = new VideoCaptureDevice(available_cameras[0].MonikerString); //Currently the System will use the first camera found.
                 camera_stream.Start();
+                usb_camera_found_flag = true;
             }
             catch (ArgumentOutOfRangeException)
             {
