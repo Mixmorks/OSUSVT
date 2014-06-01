@@ -44,3 +44,10 @@ Run the Setup Script
 sudo bash config-files/setup.bash
 ```
 Reboot The Server
+
+###OpenVPN
+[This](https://www.digitalocean.com/community/articles/how-to-setup-and-configure-an-openvpn-server-on-centos-6) guide was followed almost to the letter. However, easy-rsa must be installed separately now.
+
+1. Remember that OpenVPN GUI must be run as admin on clients
+2. [Change Windows Firewall to allow ICMP Pings](http://technet.microsoft.com/en-us/library/cc749323(v=ws.10).aspx)
+
