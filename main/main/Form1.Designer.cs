@@ -75,6 +75,7 @@
             // 
             // emergency_lights
             // 
+            this.emergency_lights.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.emergency_lights.BackColor = System.Drawing.Color.Transparent;
             this.emergency_lights.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("emergency_lights.BackgroundImage")));
             this.emergency_lights.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -89,6 +90,7 @@
             // 
             // horn
             // 
+            this.horn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.horn.BackColor = System.Drawing.Color.Transparent;
             this.horn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("horn.BackgroundImage")));
             this.horn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -154,6 +156,7 @@
             // 
             // lights
             // 
+            this.lights.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lights.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("lights.BackgroundImage")));
             this.lights.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.lights.Location = new System.Drawing.Point(653, 322);
@@ -179,9 +182,10 @@
             this.Controls.Add(this.label_power_in);
             this.Controls.Add(this.label_power_out);
             this.Controls.Add(this.velocity);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "mainForm";
             this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.left_blnk)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.right_blnk)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emergency_lights)).EndInit();
