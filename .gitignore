@@ -213,3 +213,5 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+main/main/bin/Debug/main.vshost.exe
+main/main/obj/x86/Debug/main.csproj.FileListAbsolute.txt
