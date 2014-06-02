@@ -48,7 +48,7 @@ namespace main
         GPS.GPSclass gps_data = new GPS.GPSclass();
         BodyCM.BodyControlModuleclass body_control_data = new BodyCM.BodyControlModuleclass();
         USBcam.USBcamclass camera_data = new USBcam.USBcamclass();
-        //SQL.SQLclass sql_interface = new SQL.SQLclass();
+        SQL.SQLclass sql_interface = new SQL.SQLclass();
 
         public mainForm() //Constructor for main form. In here I set timers and assign functions to events.
         {
@@ -262,7 +262,7 @@ namespace main
 
         private void update_sql_database(object sender, EventArgs e)
         {
-            //sql_interface.update_database(gps_data.Longitude, gps_data.Latitude,gps_data.Velocity,gps_data.Altitude);
+            sql_interface.update_database(gps_data.Longitude, gps_data.Latitude,gps_data.Velocity,gps_data.Altitude);
         }
 
         private void lights_Click(object sender, EventArgs e)
