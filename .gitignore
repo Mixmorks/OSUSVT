@@ -215,3 +215,8 @@ pip-log.txt
 .mr.developer.cfg
 main/main/bin/Debug/main.vshost.exe
 main/main/obj/x86/Debug/main.csproj.FileListAbsolute.txt
+*.exe
+*.pdb
+*.cache
+main/main/obj/x86/Debug/main.csproj.FileListAbsolute.txt
+main/main/obj/x86/Debug/main.csproj.GenerateResource.Cache
