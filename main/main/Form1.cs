@@ -55,7 +55,7 @@ namespace main
             InitializeComponent();
 
             ui_update_timer.Tick += new EventHandler(update_ui); //This has the update_ui function called with every tick of the timer.
-            ui_update_timer.Interval = 100;                      //ui_update_timer will 'tick' every 100 ms.
+            ui_update_timer.Interval = 10;                      //ui_update_timer will 'tick' every 100 ms.
             ui_update_timer.Start();
 
             sql_update_timer.Tick += new EventHandler(update_sql_database);
@@ -262,7 +262,7 @@ namespace main
 
         private void update_sql_database(object sender, EventArgs e)
         {
-            sql_interface.update_database(gps_data.Longitude, gps_data.Latitude,gps_data.Velocity,gps_data.Altitude);
+            sql_interface.update_database(gps_data.Longitude, gps_data.Latitude, gps_data.Velocity, gps_data.Altitude);
         }
 
         private void lights_Click(object sender, EventArgs e)
