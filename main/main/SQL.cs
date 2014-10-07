@@ -1,18 +1,34 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-
+/*
+CREATE TABLE telemetry (
+        id INTEGER NOT NULL AUTO_INCREMENT,
+        epochtime BIGINT,
+        time CHAR(16) NOT NULL,
+        latitude NUMERIC(12, 6) NOT NULL,
+        longitude NUMERIC(12, 6) NOT NULL,
+        elevation NUMERIC(10, 4) NOT NULL,
+        velocity NUMERIC(10, 4) NOT NULL,
+        mainpacksoc NUMERIC(10, 4) NOT NULL,
+        mainpackcurrent NUMERIC(10, 4) NOT NULL,
+        voltagemainpackcurrent NUMERIC(10, 4) NOT NULL,
+        arraycurrent NUMERIC(10, 4) NOT NULL,
+        auxpackvoltage NUMERIC(10, 4) NOT NULL,
+        PRIMARY KEY (id)
+)
+*/
 
 namespace SQL
 {
     //Static Information for easy changes
     class connection
     {
-        public const string sql_username = "OSUSVT";
-        public const string sql_password = "ManBearPig";
+        public const string sql_username = "solar";
+        public const string sql_password = "Phenix";
         public const string sql_database = "solarcar";
         public static string sql_root = "OSUSVT"; //Default, Prompts if cannot be configured automatically
 
@@ -30,17 +46,17 @@ namespace SQL
                                        );
 
         private bool connection_enabled;
-        
+
         public SQLclass()
         {
             try
             {
-                /* 
+                /*
                  * The checkdatabase function will succeed if:
                  * If it is already setup,
                  * If SQL is not running (Will be disabled latter)
                  * If it gets setup
-                 * 
+                 *
                  * It could throw an exception if something weird happens,
                  * if an incorrect root password is given, or anyother exception is thrown
                  */
@@ -60,7 +76,7 @@ namespace SQL
             svt_telemetry.Close();
         }
 
-        public static void checkdatabase() 
+        public static void checkdatabase()
         {
             try
             {
@@ -74,12 +90,12 @@ namespace SQL
                 {
                     MessageBox.Show(exep.Message + "\nMySQL is probably not running or not installed. Database will be disabled");
                     return; //Nothing more to do here
-                } 
+                }
                 if (exep.Number == 0) //Permissions Denied, we can attempt to fix this
                 {
                     connection.sql_root = Microsoft.VisualBasic.Interaction.InputBox("In order to configure MySQL, Please Enter MySQL root password: ", "Root Password", connection.sql_root);
                 }
-                else 
+                else
                 {
                     //MessageBox.Show(ex.Message + "\n");
                     throw exep; //Send it up the stack, we wont be handling it here
@@ -87,9 +103,9 @@ namespace SQL
             }
             MySqlConnection setupdatabase = new MySqlConnection("uid=root; server=localhost; password=" + connection.sql_root + ";");
             setupdatabase.Open(); //Will Throw Exception outside of Function if Credentials are incorect
-            
+
             //Drop our Users if they exist already
-            
+
             try
             {
                 MySqlCommand removeuser = new MySqlCommand("DROP USER '" + connection.sql_username + "'@'localhost'; ", setupdatabase);
@@ -124,52 +140,58 @@ namespace SQL
             //
             //Create table(s)
             //
-            string createtablestring = "USE " + connection.sql_database + ";" +
-                                       "CREATE TABLE IF NOT EXISTS telemetry (" +
-                                       "Id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
-                                       "RecDate TEXT, RecTime TEXT, Longitude TEXT, " +
-                                       "Latitude TEXT, " +
-                                       "Altitude DECIMAL, " +
-                                       "Velocity DECIMAL);";
-            
+            string createtablestring = "USE " + connection.sql_database + ";" + @"
+                                        CREATE TABLE telemetry (
+                                                id INTEGER NOT NULL AUTO_INCREMENT,
+                                                epochtime BIGINT,
+                                                time CHAR(16) NOT NULL,
+                                                latitude NUMERIC(12, 6) NOT NULL,
+                                                longitude NUMERIC(12, 6) NOT NULL,
+                                                elevation NUMERIC(10, 4) NOT NULL,
+                                                velocity NUMERIC(10, 4) NOT NULL,
+                                                mainpacksoc NUMERIC(10, 4) NOT NULL,
+                                                mainpackcurrent NUMERIC(10, 4) NOT NULL,
+                                                voltagemainpackcurrent NUMERIC(10, 4) NOT NULL,
+                                                arraycurrent NUMERIC(10, 4) NOT NULL,
+                                                auxpackvoltage NUMERIC(10, 4) NOT NULL,
+                                                PRIMARY KEY (id)
+                                       ";
+
             MySqlCommand createtable = new MySqlCommand(createtablestring, setupdatabase);
             createtable.ExecuteNonQuery();
         }
-        //Gets the last 5 rows from the database and averages them
-        public double get_average(string fieldname, int numRecords)
-        {
-            if (!connection_enabled)
-                return 0;
-            try
-            {
-                const string tablename = "telemetrytable";
-                string CommandText = "SELECT SUM( " + fieldname + " ) FROM (SELECT " + fieldname + " FROM " + tablename + " ORDER BY Id DESC LIMIT " + numRecords + " ) AS subquery;";
-                MySqlCommand select = new MySqlCommand(CommandText, svt_telemetry);
-                /*select.Parameters.AddWithValue("@fieldname", fieldname);
-                select.Parameters.AddWithValue("@number", numRecords);
-                */
-                //Parameterizing Did not work, because it adds "" around the parameters
-                return Convert.ToDouble(select.ExecuteScalar()) / numRecords;
-            }catch(InvalidCastException){
-                return -666;
-            }
-        }
-
-        public void update_database(string longitude, string latitude, string velocity, string altitude)
+        public void insert(string longitude, string latitude, string elevation, string velocity)
         {
             if (!connection_enabled)
                 return;
             MySqlCommand add_to_database = new MySqlCommand();
             add_to_database.Connection = svt_telemetry;
-            add_to_database.Parameters.AddWithValue("@date", DateTime.Now.ToString("M/d/yyyy")); //Stackoverflow insisted this be the way this is done. I think it prevents SQL injections. Not that we should ever have to be concerned about those.
-            add_to_database.Parameters.AddWithValue("@utc", DateTime.Now.ToString("h:mm:ss tt"));
-            add_to_database.Parameters.AddWithValue("@longitude", longitude);
+            //Stackoverflow insisted this be the way this is done. I think it prevents SQL injections. Not that we should ever have to be concerned about those.
+            add_to_database.Parameters.AddWithValue("@epochtime", (Int32)((DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds * 1000));
+            add_to_database.Parameters.AddWithValue("@time", DateTime.Now.ToString("mm/dd/yyyy HH:mm:ss"));
+            //GPS Data
             add_to_database.Parameters.AddWithValue("@latitude", latitude);
-            add_to_database.Parameters.AddWithValue("@altitude", altitude);
+            add_to_database.Parameters.AddWithValue("@longitude", longitude);
+            add_to_database.Parameters.AddWithValue("@elevation", elevation);
             add_to_database.Parameters.AddWithValue("@velocity", velocity);
-            //If Structure Changes remember to change the CREATE TABLE command in the constructer and delete the database...
-            add_to_database.CommandText = "INSERT INTO telemetry(RecDate,RecTime,Longitude,Latitude,Altitude,Velocity) VALUES (@date,@utc,@longitude,@latitude,@altitude,@velocity)";
-            add_to_database.ExecuteNonQuery();
+            //Batery Controler Data
+            add_to_database.Parameters.AddWithValue("@mainpacksoc", mainpacksoc);
+            add_to_database.Parameters.AddWithValue("@mainpackcurrent", mainpackcurrent);
+            add_to_database.Parameters.AddWithValue("@voltagemainpackcurrent", voltagemainpackcurrent);
+            //Array Controller?
+            add_to_database.Parameters.AddWithValue("@arraycurrent", arraycurrent);
+            add_to_database.Parameters.AddWithValue("@auxpackvoltage", auxpackvoltage);
+
+            //Insertion Statement
+            add_to_database.CommandText = "INSERT INTO telemetry(epochtime, time, latitude, longitude, elevation, velocity, mainpacksoc, mainpackcurrent, voltagemainpackcurrent, arraycurrent, auxpackvoltage) VALUES (@epochtime, @time, @latitude, @longitude, @elevation, @velocity, @mainpacksoc, @mainpackcurrent, @voltagemainpackcurrent, @arraycurrent, @auxpackvoltage)";
+            try
+            {
+                add_to_database.ExecuteNonQuery();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException)
+            {
+                ;//If there is a problem, we don't want it to affect us. To bad we loose that data though....
+            }
         }
     }
 }
