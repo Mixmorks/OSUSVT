@@ -125,5 +125,11 @@ namespace BodyCM
 
             }
 
+            public void write_to_port(string data)
+            {
+                if(body_control_module_found_flag)
+                    body_control_module_port.Write(data);
+            }
+
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -155,12 +155,12 @@ namespace SQL
                                                 arraycurrent NUMERIC(10, 4) NOT NULL,
                                                 auxpackvoltage NUMERIC(10, 4) NOT NULL,
                                                 PRIMARY KEY (id)
-                                       ";
+                                       )";
 
             MySqlCommand createtable = new MySqlCommand(createtablestring, setupdatabase);
             createtable.ExecuteNonQuery();
         }
-        public void insert(string longitude, string latitude, string elevation, string velocity)
+        public void insert(string longitude, string latitude, string elevation, string velocity, string mainpacksoc, string mainpackcurrent, string voltagemainpackcurrent, string arraycurrent, string auxpackvoltage)
         {
             if (!connection_enabled)
                 return;

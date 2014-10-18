@@ -38,9 +38,6 @@ namespace GPS
             bool port_is_open = false;
             string[] valid_ports; //Makes an array of available port names
 
-            Latitude = "Initializing...";
-            Longitude = "Initializing...";
-
             while (!GPS_found_flag)
             {
                 valid_ports = SerialPort.GetPortNames();
