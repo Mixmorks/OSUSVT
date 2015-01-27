@@ -174,7 +174,7 @@ namespace SQL
             add_to_database.Parameters.AddWithValue("@longitude", longitude);
             add_to_database.Parameters.AddWithValue("@elevation", elevation);
             add_to_database.Parameters.AddWithValue("@velocity", velocity);
-            //Batery Controler Data
+            //Battery Controler Data
             add_to_database.Parameters.AddWithValue("@mainpacksoc", mainpacksoc);
             add_to_database.Parameters.AddWithValue("@mainpackcurrent", mainpackcurrent);
             add_to_database.Parameters.AddWithValue("@voltagemainpackcurrent", voltagemainpackcurrent);

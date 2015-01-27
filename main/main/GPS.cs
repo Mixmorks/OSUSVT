@@ -74,7 +74,9 @@ namespace GPS
                                 return;
                             }
                         }
-                        catch (TimeoutException) { }
+                        catch (TimeoutException) {
+                            System.Diagnostics.Debug.Write("TIMEOUT on port " + port);
+                        }
 
                         gps_port.Close(); //If not close port and move to next port.
                     }

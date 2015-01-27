@@ -12,7 +12,7 @@ namespace BodyCM
             
             public string Teststring { get; set; }
 
-            public bool ready {get; set; }
+            public bool ready { get; set; }
             public bool vehicle_wake { get; set; }
             public bool EPO { get; set; }
             public bool AC_charger_plugged { get; set; }
@@ -56,7 +56,7 @@ namespace BodyCM
 
             public BodyControlModuleclass()
             {
-                Thread body_control_module_initializer = new Thread(init_body_control_port); //We don't want to wait until everything is enitialized before building the UI so we'll outsource the work onto a separate thread.
+                Thread body_control_module_initializer = new Thread(init_body_control_port); //We don't want to wait until everything is initialized before building the UI so we'll outsource the work onto a separate thread.
                 body_control_module_initializer.Start();
             }
 
@@ -114,15 +114,7 @@ namespace BodyCM
 
             public void handle_body_control_module_data_available(object sender, SerialDataReceivedEventArgs e)
             {
-                try
-                {
                     Teststring = body_control_module_port.ReadLine();
-                }
-                catch(TimeoutException)
-                { 
-                    //Not sure if we actually need this, considering that read_port is only called when we have data received.
-                }
-
             }
 
             public void write_to_port(string data)

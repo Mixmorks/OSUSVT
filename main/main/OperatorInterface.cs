@@ -20,6 +20,7 @@ namespace main
     {
         private Timer ui_update_timer = new Timer(); //This timer will update the UI at 100 ms intervals.
         private Timer sql_update_timer = new Timer();
+        private Timer horn_timer = new Timer();
 
         #region Variables for Blinkers
         /*
@@ -54,8 +55,11 @@ namespace main
         {
             InitializeComponent();
 
+            horn_timer.Interval = 50;
+
+
             ui_update_timer.Tick += new EventHandler(update_ui); //This has the update_ui function called with every tick of the timer.
-            ui_update_timer.Interval = 10;                      //ui_update_timer will 'tick' every 100 ms.
+            ui_update_timer.Interval = 10;                       //ui_update_timer will 'tick' every 10 ms.
             ui_update_timer.Start();
 
             sql_update_timer.Tick += new EventHandler(update_sql_database);
@@ -64,11 +68,13 @@ namespace main
 
             blinker_timer.Interval = 700;                        //The reason I only initialize the timer interval here is because
             blinker_timer.Start();                               //I will call separate functions using this blinker_timer 
-                                                                 //(depending on which blink"C:/Users/Student/Documents/GitHub/OSUSVT/images/lightsOn.png"er we decide to turn on).
+                                                                 //(depending on which blinker we decide to turn on).
 
             if(camera_data.usb_camera_found_flag)
                 camera_data.camera_stream.NewFrame += handle_new_camera_frame; //Connects the handle_new_camera_frame function to the NewFrame event of the camera stream.
 
+            horn.MouseDown += horn_on;
+            horn.MouseUp += horn_off;
         }
 
         #region Upper Left Button Click Event
@@ -93,6 +99,7 @@ namespace main
             {
                 left_blinker_state = true; //Turn blinker on
                 blinker_timer.Tick += left_blink_handler; //Connect left_blink_handler to timer.Tick event.
+                left_blnk.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/UpperLeftButtonDark.png");
             }
             else 
             {
@@ -126,6 +133,7 @@ namespace main
             {
                 right_blinker_state = true;
                 blinker_timer.Tick += right_blink_handler;
+                right_blnk.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/UpperRightButtonDark.png");
             }
             else
             {
@@ -159,6 +167,7 @@ namespace main
             {
                 emergency_blinker_state = true;
                 blinker_timer.Tick += emergency_blink_handler;
+                emergency_lights.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/EmergencyDark.png");
             }
             else
             {
@@ -211,21 +220,57 @@ namespace main
         {
             if (!emergency_button_image_state)
             {
-                emergency_lights.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/Emergency.png");
+                emergency_lights.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/EmergencyDark.png");
                 emergency_button_image_state = true;
-                
                 body_control_data.write_to_port("emergncy");
-
             }
             else
             {
                 emergency_button_image_state = false;
-                emergency_lights.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/EmergencyLight.png");
+                emergency_lights.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/Emergency.png");
             }
         }
 
         #endregion
 
+        private void lights_Click(object sender, EventArgs e)
+        {
+            if (!lights_on)
+            {
+                lights_on = true;
+                lights.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/lightsOn.png");
+                body_control_data.write_to_port("lightson");
+
+            }
+            else
+            {
+                lights_on = false;
+                lights.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/lightsOff.png");
+                body_control_data.write_to_port("lightoff");
+            }
+
+        }
+
+        #region Horn Button Code
+        private void horn_on(object sender, EventArgs e)
+        {
+            horn_timer.Tick += send_horn;
+            horn_timer.Start();
+            horn.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/Horn2dark.png");
+        }
+
+        private void horn_off(object sender, EventArgs e)
+        {
+            horn_timer.Tick -= send_horn;
+            horn_timer.Stop();
+            horn.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/Horn2.png");
+        }
+
+        private void send_horn(object sender, EventArgs e)
+        {
+            body_control_data.write_to_port("hornonaa");
+        }
+        #endregion
 
         private void handle_new_camera_frame(object sender, NewFrameEventArgs camera_event_data) //This will update the camera_window whenever there is a new image available.
         {
@@ -249,21 +294,6 @@ namespace main
         private void update_sql_database(object sender, EventArgs e)
         {
             sql_interface.insert(gps_data.Longitude, gps_data.Latitude, gps_data.Altitude, gps_data.Velocity, "-1"/*mainpacksoc*/, "-1"/*mainpackcurrent*/, "-1"/*voltagemainpackcurrent*/, "-1"/*arraycurrent*/, "-1"/*auxpackvoltage*/);
-        }
-
-        private void lights_Click(object sender, EventArgs e)
-        {
-            if (!lights_on)
-            {
-                lights_on = true;
-                lights.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/lightsOn.png");
-            }
-            else
-            {
-                lights_on = false;
-                lights.BackgroundImage = System.Drawing.Image.FromFile("C:/Users/Student/Documents/GitHub/OSUSVT/images/lightsOff.png");
-            }
-
         }
 
     }
